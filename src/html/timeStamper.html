@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--suppress HtmlFormInputWithoutLabel -->
+<html style="height: 100%;">
+<head>
+    <meta charset="utf-8">
+    <title>Time Stamper</title>
+    <link type="text/css" rel="stylesheet" media="all" href="../css/bootstrap-slate.css">
+    <link type="text/css" rel="stylesheet" media="all" href="../css/font-awesome.min.css">
+    <style type="text/css">
+        * {
+            -webkit-user-select: none;
+        }
+        input[type="text"], textarea {
+            -webkit-user-select: auto;
+        }
+        body {
+            font-family: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+        }
+    </style>
+</head>
+<body style="height: 100%;">
+<script type="text/html" id="main-view-template">
+    <div class="js-body-wrap" style="height: 100%;">
+        <div class="col-xs-12">
+            <h3 class="page-header">Timestamper</h3>
+
+            <div class="btn-group-sm btn-group-justified" style="margin-bottom: 15px;">
+                <a href="#"
+                   class="js-rename-btn btn btn-default <% if(action == 'rename'){print('btn-success active')}%>">Rename</a>
+                <a href="#"
+                   class="js-copy-btn btn btn-default <% if(action == 'copy'){print('btn-success active')}%>">Copy</a>
+            </div>
+            <div class="btn-group-sm btn-group-justified" style="margin-bottom: 15px;">
+                <a href="#"
+                   class="js-read-only-btn btn btn-default <% if(readOnly == true){print('btn-success active')}%>">Read
+                    only</a>
+            </div>
+            <div class="btn-group-sm btn-group-justified" style="margin-bottom: 15px;">
+                <a href="#"
+                   class="js-today-btn btn btn-default <% if(timeSrc == 'today'){print('btn-success active')}%>">Today</a>
+                <a href="#"
+                   class="js-lastModified-btn btn btn-default <% if(timeSrc == 'lastModified'){print('btn-success active')}%>">Last
+                    modified</a>
+            </div>
+
+            <div class="input-group" style="margin-bottom: 15px;">
+                <span class="js-prefix-btn input-group-addon btn btn-sm <% if(usePrefix){print('btn-success active')} %>">prefix</span>
+                <input type="text" class="form-control input-sm js-prefix-input" value="<%= prefixString %>"
+                       data-toggle="dropdown">
+                <ul class="dropdown-menu" role="menu" style="margin-left: 55px;">
+                    <% _.forEach( recentPrefix, function( prefix ){ %>
+                    <li><a class="js-prefix-recent-row" data-val="<%= prefix %>"><%= prefix %></a></li>
+                    <% }); %>
+                </ul>
+            </div>
+            <div class="input-group" style="margin-bottom: 15px;">
+                <span class="js-suffix-btn input-group-addon btn btn-sm <% if(useSuffix){print('btn-success active')} %>">suffix</span>
+                <input type="text" class="form-control input-sm js-suffix-input" value="<%= suffixString %>"
+                       data-toggle="dropdown">
+                <ul class="dropdown-menu" role="menu" style="margin-left: 55px;">
+                    <% _.forEach( recentSuffix, function( suffix ){ %>
+                    <li><a class="js-suffix-recent-row" data-val="<%= suffix %>"><%= suffix %></a></li>
+                    <% }); %>
+                </ul>
+            </div>
+            <div class="input-group" style="margin-bottom: 15px;">
+                <span class="js-timestamp-btn input-group-addon btn btn-sm <% if(useTimestamp){print('btn-success active')} %>">timestamp</span>
+                <input type="text" class="form-control input-sm js-timestamp-input"
+                       value="<%= timestampFormat %>">
+            </div>
+
+        </div>
+    </div>
+
+</script>
+<!--suppress HtmlUnknownTarget -->
+<script src="../js/renderer/timeStamper.js"></script>
+</body>
+</html>

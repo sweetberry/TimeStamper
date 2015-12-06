@@ -1,0 +1,8 @@
+{
+  "name": "TimeStamper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/main/main.js",
+  "author": "pixel@sweetberry.com",
+  "license": "MIT"
+}

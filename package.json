@@ -1,0 +1,40 @@
+{
+  "name": "TimeStamper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/js/main/main.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "debug": "gulp debug",
+    "build-osx": "gulp build-osx",
+    "build-win32": "gulp build-win32",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "pixel@sweetberry.com",
+  "license": "MIT",
+  "devDependencies": {
+    "electron-prebuilt": "^0.35.2",
+    "gulp": "^3.9.0",
+    "gulp-atom-electron": "^1.1.0",
+    "gulp-edit": "0.0.1",
+    "gulp-symdest": "^1.0.0",
+    "gulp-vinyl-zip": "^1.1.2",
+    "rimraf": "^2.4.4",
+    "run-sequence": "^1.1.5",
+    "webpack": "^1.12.9",
+    "webpack-stream": "^2.2.0"
+  },
+  "dependencies": {
+    "backbone": "^1.2.3",
+    "backbone.localstorage": "^1.1.16",
+    "backbone.marionette": "^2.4.4",
+    "bootstrap": "^3.3.6",
+    "fs-extra": "^0.26.2",
+    "fswin": "^2.15.1031",
+    "jquery": "^2.1.4",
+    "moment": "^2.10.6",
+    "underscore": "^1.8.3"
+  }
+}
