@@ -32,7 +32,6 @@
     "backbone.marionette": "^2.4.4",
     "bootstrap": "^3.3.6",
     "fs-extra": "^0.26.2",
-    "fswin": "^2.15.1031",
     "jquery": "^2.1.4",
     "moment": "^2.10.6",
     "underscore": "^1.8.3"
