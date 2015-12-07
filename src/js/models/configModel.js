@@ -68,7 +68,7 @@ const ConfigModel = Backbone.Model.extend( {
       if (isWindows) {
         child_process.execSync( 'attrib +r "' + resultFilePath + '"' );
       } else {
-        child_process.execSync( 'chflags uchg ' + resultFilePath.replace( /(\s)/, '\\ ' ) );
+        child_process.execSync( 'chflags uchg ' + resultFilePath.replace( /(\s)/g, '\\ ' ) );
       }
     }
 
