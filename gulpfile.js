@@ -8,7 +8,7 @@ const runSequence = require( 'run-sequence' );
 const webpack = require( 'webpack-stream' );
 const electron = require( 'gulp-atom-electron' );
 const symdest = require( 'gulp-symdest' );
-const zip = require('gulp-vinyl-zip');
+const zip = require( 'gulp-vinyl-zip' );
 
 const packageJson = require( './package.json' );
 const destinationDirPath = './dist/';
@@ -57,15 +57,17 @@ gulp.task( 'build-osx', function () {
 } );
 
 gulp.task( 'build-win32', function () {
-  return gulp.src( './dist/src/**' )
-      .pipe( electron( {
-        version: '0.35.2',
-        platform: 'win32',
-        arch: 'ia32',
-        winIcon: './resource/icons/TimeStamper.ico',
-        companyName: 'SweetberryStudio',
-        copyright: '(C) 2015 SweetberryStudio'
-      } ) )
-      .pipe( zip.dest( 'dist/bin/win32/' + packageJson.name + '_win32.zip' ) );
+  runSequence( 'clean-dest', ['_copy-otherFiles', '_webpack-build'], function () {
+    return gulp.src( './dist/src/**' )
+        .pipe( electron( {
+          version    : '0.35.2',
+          platform: 'win32',
+          arch    : 'ia32',
+          winIcon : './resource/icons/TimeStamper.ico',
+          companyName: 'SweetberryStudio',
+          copyright  : '(C) 2015 SweetberryStudio'
+        } ) )
+        .pipe( zip.dest( 'dist/bin/win32/' + packageJson.name + '_win32.zip' ) );
+  } )
 } );
 
