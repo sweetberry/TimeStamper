@@ -67,9 +67,7 @@ const ConfigModel = Backbone.Model.extend( {
     if (this.get( 'readOnly' )) {
       var isWindows = process.platform.indexOf( "win" ) === 0;
       if (isWindows) {
-        const fsWin = require( 'fswin' );
-        const attributes = {IS_READ_ONLY: true};
-        fsWin.setAttributesSync( resultFilePath, attributes )
+        child_process.execSync( 'attrib +r ' + resultFilePath );
       } else {
         child_process.execSync( 'chflags uchg ' + resultFilePath.replace(/(\s)/, "\\ ") );
       }
