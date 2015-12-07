@@ -66,7 +66,12 @@ const ConfigModel = Backbone.Model.extend( {
     if (this.get( 'readOnly' )) {
       const isWindows = process.platform.indexOf( "win" ) === 0;
       if (isWindows) {
-        child_process.execSync( 'attrib +r "' + resultFilePath + '"' );
+        try {
+          //build済みelectronのwin版でerrorが出ます。咬み殺すのもやなのでログだけは残す。
+          child_process.execSync( 'attrib +r "' + resultFilePath + '"' );
+        } catch (e) {
+          console.error( e );
+        }
       } else {
         child_process.execSync( 'chflags uchg ' + resultFilePath.replace( /(\s)/g, '\\ ' ) );
       }
