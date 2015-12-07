@@ -50,8 +50,7 @@ const ConfigModel = Backbone.Model.extend( {
     }
 
     const resultFilePath = ensureUniqueName( path.join( dirname, resultBasename + ext ) );
-
-    console.log( resultFilePath );
+    //console.log( resultFilePath );
 
     // copy
     if (this.get( 'action' ) == 'copy') {
