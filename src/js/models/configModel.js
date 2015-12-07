@@ -65,7 +65,7 @@ const ConfigModel = Backbone.Model.extend( {
 
     // readOnly
     if (this.get( 'readOnly' )) {
-      var isWindows = process.platform.indexOf( "win" ) === 0;
+      const isWindows = process.platform.indexOf( "win" ) === 0;
       if (isWindows) {
         child_process.execSync( 'attrib +r ' + resultFilePath );
       } else {
