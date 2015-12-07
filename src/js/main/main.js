@@ -25,11 +25,12 @@ app.on( 'window-all-closed', function () {
 // This method will be called when atom-shell has done everything
 // initialization and ready for creating browser windows.
 app.on( 'ready', function () {
+  const isWindows = process.platform.indexOf( "win" ) === 0;
 
   // Create the browser window.
   mainWindow = new BrowserWindow( {
     width : 256,
-    height: 384
+    height: (isWindows) ? 512 : 384
   } );
 
   // and load the timeStamper.html of the app.
