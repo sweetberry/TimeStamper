@@ -30,7 +30,7 @@ app.on( 'ready', function () {
   // Create the browser window.
   mainWindow = new BrowserWindow( {
     width : 256,
-    height: (isWindows) ? 512 : 384
+    height: (isWindows) ? 440 : 384
   } );
 
   // and load the timeStamper.html of the app.
