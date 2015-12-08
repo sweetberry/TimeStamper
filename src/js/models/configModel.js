@@ -30,6 +30,14 @@ const ConfigModel = Backbone.Model.extend( {
     const basename = path.basename( srcFilePath, ext );
     const dirname = path.dirname( srcFilePath );
 
+    //updateRecent
+    if (this.get( 'usePrefix' )) {
+      this.updateRecentPrefix();
+    }
+    if (this.get( 'useSuffix' )) {
+      this.updateRecentSuffix();
+    }
+
     // resultFilePathを決める
     var resultBasename = '';
     if (this.get( 'usePrefix' )) {
@@ -50,37 +58,41 @@ const ConfigModel = Backbone.Model.extend( {
     }
 
     const resultFilePath = ensureUniqueName( path.join( dirname, resultBasename + ext ) );
+    //console.log( resultFilePath );
 
-    console.log( resultFilePath );
+    const isReadOnly = this.get( 'readOnly' );
 
     // copy
     if (this.get( 'action' ) == 'copy') {
-      fse.copySync( srcFilePath, resultFilePath, {preserveTimestamps: true} );
+      fse.copy( srcFilePath, resultFilePath, {preserveTimestamps: true}, function ( err ) {
+        if (err) {console.error( err )}
+        applyReadOnly();
+      } );
     }
 
     // rename
     if (this.get( 'action' ) == 'rename') {
-      fs.renameSync( srcFilePath, resultFilePath );
+      fs.rename( srcFilePath, resultFilePath, function ( err ) {
+        if (err) {console.error( err )}
+        applyReadOnly();
+      } );
     }
 
     // readOnly
-    if (this.get( 'readOnly' )) {
-      var isWindows = process.platform.indexOf( "win" ) === 0;
-      if (isWindows) {
-        const fsWin = require( 'fswin' );
-        const attributes = {IS_READ_ONLY: true};
-        fsWin.setAttributesSync( resultFilePath, attributes )
-      } else {
-        child_process.execSync( 'chflags uchg ' + resultFilePath.replace(/(\s)/, "\\ ") );
+    function applyReadOnly () {
+      if (isReadOnly) {
+        const isWindows = process.platform.indexOf( "win" ) === 0;
+        if (isWindows) {
+          try {
+            //build済みelectronのwin版でerrorが出ます。咬み殺すのもやなのでログだけは残す。
+            child_process.execSync( 'attrib +r "' + resultFilePath + '"' );
+          } catch (e) {
+            console.error( e );
+          }
+        } else {
+          child_process.execSync( 'chflags uchg ' + resultFilePath.replace( /(\s)/g, '\\ ' ) );
+        }
       }
-    }
-
-    //updateRecent
-    if (this.get( 'usePrefix' )) {
-      this.updateRecentPrefix();
-    }
-    if (this.get( 'useSuffix' )) {
-      this.updateRecentSuffix();
     }
 
   },

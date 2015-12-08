@@ -9,6 +9,7 @@ const configModel = require( '../models/configModel' );
 require( 'backbone.marionette' );
 require( 'bootstrap' );
 
+//noinspection JSUnusedGlobalSymbols
 const TimeStamperView = Backbone.Marionette.LayoutView.extend( {
   model      : configModel,
   template   : '#main-view-template',
@@ -106,7 +107,7 @@ const TimeStamperView = Backbone.Marionette.LayoutView.extend( {
 
     //noinspection JSUnresolvedVariable
     const droppedFilePathArray = _.map( e.originalEvent.dataTransfer.files, function ( file ) {return file.path} );
-    console.log( droppedFilePathArray );
+    //console.log( droppedFilePathArray );
     _.each( droppedFilePathArray, function ( filePath ) {
       model.executeStamp( filePath );
     } )
